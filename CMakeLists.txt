@@ -1,44 +1,52 @@
-cmake_minimum_required(VERSION 3.16)
-project(pheV3 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.10)
+project(pheV3)
 
-# Set C++ Standard
+# Set policy CMP0072 to prefer GLVND if available
+cmake_policy(SET CMP0072 NEW)
+
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Automatically find all .cpp and .hpp files in src and include directories
-file(GLOB_RECURSE SRC_FILES src/*.cpp)
-file(GLOB_RECURSE HEADER_FILES include/*.hpp)
+# Include the main include directory for all targets
+include_directories(${PROJECT_SOURCE_DIR}/include)
 
-# Add source files explicitly if needed
-list(APPEND SRC_FILES src/graphics/window.cpp)
-
-# Check if we found source files
-if(NOT SRC_FILES)
-  message(FATAL_ERROR "No source files found in the 'src' directory.")
-endif()
-
-# Create the physics engine as a static library
-add_library(pheV3 STATIC ${SRC_FILES} ${HEADER_FILES})
-
-# Include directories globally for all targets that link to pheV3
-target_include_directories(pheV3 PUBLIC ${CMAKE_SOURCE_DIR}/include)
-
-# Find required packages
-find_package(glm REQUIRED)
+# Find packages and external libraries
 find_package(OpenGL REQUIRED)
-
-# Manually add GLEW and GLFW using pkg-config
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GLFW REQUIRED glfw3)
 pkg_check_modules(GLEW REQUIRED glew)
+find_package(GTest REQUIRED)
 
-# Link libraries for pheV3
-target_link_libraries(pheV3 PUBLIC OpenGL::GL ${GLEW_LIBRARIES} ${GLFW_LIBRARIES})
+# (Optional) Print the found libraries for debugging
+message(STATUS "GLFW_LIBRARIES: ${GLFW_LIBRARIES}")
+message(STATUS "GLEW_LIBRARIES: ${GLEW_LIBRARIES}")
 
-# Include the GLEW and GLFW include directories
-target_include_directories(pheV3 PUBLIC ${GLEW_INCLUDE_DIRS} ${GLFW_INCLUDE_DIRS})
+# Collect source files for the main library
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
 
-# Add a demo executable (for testing and rendering)
+# Create the main library target
+add_library(pheV3 STATIC ${SRC_FILES})
+
+# Link external libraries to the main library target
+target_link_libraries(pheV3 PUBLIC OpenGL::GL ${GLFW_LIBRARIES} ${GLEW_LIBRARIES})
+
+# Collect test source files
+file(GLOB_RECURSE TEST_FILES tests/*.cpp)
+
+# Create the test executable target
+add_executable(pheV3_tests ${TEST_FILES})
+
+# Link the test executable with the main library and Google Test libraries
+target_link_libraries(pheV3_tests PRIVATE pheV3 GTest::GTest GTest::Main)
+
+# Ensure tests can find headers in the include directory
+target_include_directories(pheV3_tests PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
+# Enable CTest and add the test
+enable_testing()
+add_test(NAME pheV3_tests COMMAND pheV3_tests)
+
+# Optionally, create a demo executable
 add_executable(pheV3_demo tests/demo.cpp)
 target_link_libraries(pheV3_demo PRIVATE pheV3)
 
