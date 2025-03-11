@@ -1,4 +1,6 @@
 #include "graphics/window.hpp"
+#include "graphics/mesh.hpp"
+#include "graphics/renderer.hpp"
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -16,7 +18,14 @@ int main() {
         return 1;
     }
 
+    // Test mesh rendering
+    graphics::Mesh mesh = graphics::createCubeMesh();
+
     while (!graphics::shouldClose(window)) {
+        graphics::renderClear(0.2f, 0.3f, 0.3f, 1.0f);
+
+        graphics::drawMesh(mesh);
+
         graphics::swapBuffers(window);
         graphics::pollEvents();
     }
