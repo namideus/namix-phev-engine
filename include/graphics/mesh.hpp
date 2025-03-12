@@ -12,7 +12,7 @@ namespace phe::graphics {
     Mesh createMesh(std::vector<float> vertices, 
                     std::vector<unsigned int> indices);
 
-    Mesh createCubeMesh();
+    Mesh createCubeMesh(float r, float g, float b);
 
     void destroyMesh(Mesh& mesh);
 
