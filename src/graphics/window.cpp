@@ -47,7 +47,6 @@ int graphics::initWindow(phe::graphics::Window* window) {
         std::cerr << "Couldn't initialize, window is nullptr\n";
         return -1;
     }
-
     glfwMakeContextCurrent(window->nativeWindow);
 
     if (glewInit() != GLEW_OK) {
