@@ -1,3 +1,6 @@
+#ifndef TRANSFORM_HPP
+#define TRANSFORM_HPP
+
 #include <glm/gtc/quaternion.hpp>
 #include <glm/glm.hpp>
 
@@ -10,4 +13,6 @@ namespace phe::math {
 
     glm::mat4 toMatrix(const Transform& t);
 }
+
+#endif
 

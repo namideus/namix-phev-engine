@@ -1,3 +1,6 @@
+#ifndef MESH_HPP
+#define MESH_HPP
+
 #include <vector>
 #include <glm/glm.hpp>
 
@@ -21,4 +24,6 @@ namespace phe::graphics {
      */
     void drawMesh(Mesh &m);
 }
+
+#endif
 
