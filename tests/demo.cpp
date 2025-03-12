@@ -1,6 +1,6 @@
 #include "graphics/renderer.hpp"
 #include "graphics/window.hpp"
-#include "graphics/mesh.hpp"
+#include "physics/rigidbody.hpp"
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -18,15 +18,15 @@ int main() {
         return 1;
     }
 
-    graphics::Renderer renderer = graphics::renderInit();
+    graphics::Renderer renderer = graphics::renderInit(WIDTH, HEIGHT);
 
-    // Test mesh rendering
-    graphics::Mesh mesh = graphics::createCubeMesh(1.0f, 0.0f, 0.0f);
+    physics::RigidBody b(0.5f, 0.2f, 0.2f);
 
     while (!graphics::shouldClose(window)) {
         graphics::renderClear(0.2f, 0.3f, 0.3f, 1.0f);
 
-        graphics::drawMesh(mesh);
+        graphics::drawRigidBody(b, renderer);
+        physics::setPosition(b, 0.0f, 1.0f, b.trans.translation.z-0.01);
 
         graphics::swapBuffers(window);
         graphics::pollEvents();
