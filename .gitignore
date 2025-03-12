@@ -2,3 +2,4 @@
 /.cache
 /libpheV3.a
 /compile_commands.json
+/cmakecommands.txt
