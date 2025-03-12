@@ -1,6 +1,6 @@
+#include "graphics/renderer.hpp"
 #include "graphics/window.hpp"
 #include "graphics/mesh.hpp"
-#include "graphics/renderer.hpp"
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -17,6 +17,8 @@ int main() {
         graphics::destroyWindow(window);
         return 1;
     }
+
+    graphics::Renderer renderer = graphics::renderInit();
 
     // Test mesh rendering
     graphics::Mesh mesh = graphics::createCubeMesh(1.0f, 0.0f, 0.0f);
