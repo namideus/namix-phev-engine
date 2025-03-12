@@ -19,7 +19,7 @@ int main() {
     }
 
     // Test mesh rendering
-    graphics::Mesh mesh = graphics::createCubeMesh();
+    graphics::Mesh mesh = graphics::createCubeMesh(1.0f, 0.0f, 0.0f);
 
     while (!graphics::shouldClose(window)) {
         graphics::renderClear(0.2f, 0.3f, 0.3f, 1.0f);
