@@ -1,7 +1,5 @@
 # Physics Engine V3 (pheV3)
 
-# pheV3 Physics Engine
-
 ## Overview
 
 pheV3 is a custom physics engine project built to showcase advanced skills in
@@ -19,8 +17,7 @@ progresses.
 (position, velocity, acceleration) along with rotational dynamics 
 (angular velocity, torque, and orientation using quaternions).
 - **Modular & Maintainable Code:** Structure the engine into discrete, testable
-modules so that each component (e.g., force integration, collision handling) 
-can be developed and refined independently.
+modules so that each component can be developed and refined independently.
 - **High-Quality Demos:** Create polished visual demos that clearly demonstrate
 the engine's capabilities.
 - **Automated Testing:** Establish a solid testing framework to ensure every 
