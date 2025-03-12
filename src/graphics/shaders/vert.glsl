@@ -5,8 +5,12 @@ layout (location = 1) in vec3 aColor; // Vertex color
 
 out vec3 vertexColor; // Pass color to fragment shader
 
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
 void main() {
     vertexColor = aColor;
-    gl_Position = vec4(aPos, 1.0); // Transform vertex
+    gl_Position = projection * view * model * vec4(aPos, 1.0); // Transform vertex
 }
 
