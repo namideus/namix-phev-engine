@@ -10,10 +10,10 @@ Mesh createMesh(std::vector<float> vertices, std::vector<unsigned int> indices) 
     m.indices = indices;
 
     glGenVertexArrays(1, &m.vao);
+    glBindVertexArray(m.vao);
+
     glGenBuffers(1, &m.vbo);
     glGenBuffers(1, &m.ebo);
-    
-    glBindVertexArray(m.vao);
 
     glBindBuffer(GL_ARRAY_BUFFER, m.vbo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.ebo);
@@ -50,7 +50,8 @@ void destroyMesh(Mesh &m) {
 
 void drawMesh(Mesh &m) {
     glBindVertexArray(m.vao);
-    glDrawElements(GL_TRIANGLES, m.indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, m.indices.size(), GL_UNSIGNED_INT, nullptr);
+    glBindVertexArray(0);
 }
 
 Mesh createCubeMesh(float r, float g, float b) {
