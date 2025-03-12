@@ -54,26 +54,61 @@ void drawMesh(Mesh &m) {
     glBindVertexArray(0);
 }
 
-Mesh createCubeMesh(float r, float g, float b) {
+/**
+ * @param size The size of the cube.
+ *
+ * @param r Red value of the cube.
+ * @param g Green value of the cube.
+ * @param b Blue value of the cube.
+ */
+Mesh createCubeMesh(glm::vec3 size, glm::vec3 rgb) {
+    float hx = size.x * 0.5;
+    float hy = size.y * 0.5;
+    float hz = size.z * 0.5;
+
+    float r = rgb.x;
+    float g = rgb.y;
+    float b = rgb.b;
+
     std::vector<float> cubeVertices = {
-        // Positions          // Colors
-        -0.5f, -0.5f, -0.5f,  r, g, b,
-         0.5f, -0.5f, -0.5f,  r, g, b,
-         0.5f,  0.5f, -0.5f,  r, g, b,
-        -0.5f,  0.5f, -0.5f,  r, g, b,
-        -0.5f, -0.5f,  0.5f,  r, g, b,
-         0.5f, -0.5f,  0.5f,  r, g, b,
-         0.5f,  0.5f,  0.5f,  r, g, b,
-        -0.5f,  0.5f,  0.5f,  r, g, b 
+        -hx, -hy,  hz,  r, g, b,
+         hx, -hy,  hz,  r, g, b,
+         hx,  hy,  hz,  r, g, b,
+        -hx,  hy,  hz,  r, g, b,
+
+        -hx, -hy, -hz,  r, g, b,
+        -hx,  hy, -hz,  r, g, b,
+         hx,  hy, -hz,  r, g, b,
+         hx, -hy, -hz,  r, g, b,
+
+        -hx, -hy, -hz,  r, g, b,
+        -hx, -hy,  hz,  r, g, b,
+        -hx,  hy,  hz,  r, g, b,
+        -hx,  hy, -hz,  r, g, b,
+
+         hx, -hy, -hz,  r, g, b,
+         hx,  hy, -hz,  r, g, b,
+         hx,  hy,  hz,  r, g, b,
+         hx, -hy,  hz,  r, g, b,
+
+        -hx,  hy, -hz,  r, g, b,
+        -hx,  hy,  hz,  r, g, b,
+         hx,  hy,  hz,  r, g, b,
+         hx,  hy, -hz,  r, g, b,
+
+         hx, -hy, -hz,  r, g, b,
+         hx, -hy,  hz,  r, g, b,
+        -hx, -hy,  hz,  r, g, b,
     };
+
 
     std::vector<unsigned int> cubeIndices = {
         0, 1, 2, 2, 3, 0,
         4, 5, 6, 6, 7, 4,
-        0, 4, 7, 7, 3, 0,
-        1, 5, 6, 6, 2, 1,
-        3, 2, 6, 6, 7, 3,
-        0, 1, 5, 5, 4, 0 
+        8, 9, 10, 10, 11, 8,
+        12, 13, 14, 14, 15, 12,
+        16, 17, 18, 18, 19, 16,
+        20, 21, 22, 22, 23, 20
     };
 
     return createMesh(cubeVertices, cubeIndices);
