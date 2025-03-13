@@ -43,7 +43,7 @@ building complex systems.
 How to create and utilize a window
 
 ```cpp
-phe::graphics::Window window = phe::graphics::createWindow(800, 600, "Example pheV3");
+phe::graphics::Window* window = phe::graphics::createWindow(800, 600, "Example pheV3");
 if (!window) {
     return 1;
 }
