@@ -2,72 +2,60 @@
 
 ## Overview
 
-pheV3 is a custom physics engine project built to showcase advanced skills in
-simulating realistic physics. The engine focuses on both linear and rotational 
-motion, offering a robust framework for experimenting with and demonstrating 
-physical behaviors in a virtual environment.
+phe3V is a 3D Physics Engine library written in C++ made to showcase my abilities
+in creating complex systems. It provides a robust framework to experiment with 
+linear and angular motion of Rigid Bodies.
 
-> **Note:** This project is in its very early stages, so most of the planned 
-features aren't implemented yet. They will be added step by step as development 
-progresses.
+## Features
 
-## Project Goals
+- Linear and angular motion integration.
+- OpenGL wrappers (for things like windows, rendering, shaders).
+- Easy implementation for real-time demos.
 
-- **Accurate Simulation:** Implement and simulate linear motion 
-(position, velocity, acceleration) along with rotational dynamics 
-(angular velocity, torque, and orientation using quaternions).
-- **Modular & Maintainable Code:** Structure the engine into discrete, testable
-modules so that each component can be developed and refined independently.
-- **High-Quality Demos:** Create polished visual demos that clearly demonstrate
-the engine's capabilities.
-- **Automated Testing:** Establish a solid testing framework to ensure every 
-part of the engine works as expected, helping to catch bugs early and 
-streamline future improvements.
+### Technologies
+- C++
+- CMake
+- OpenGL
+- GLFW
+- glew
+- glm (for math)
 
-## What I Plan to Do
+## Why this project?
+I have built this project to push my limits as a software developer. With this
+project I aim to:
 
-- **Core Engine Development:**  
-  - Implement basic linear motion using Newtonian mechanics.  
-  - Integrate rotational motion to simulate realistic object dynamics, 
-  including angular acceleration and torque.
-- **Integration of Essential Libraries:**  
-  - Use **GLM** for all math operations (vectors, matrices, quaternions).  
-  - Use **OpenGL** for rendering, with **GLEW** and **GLFW** to handle 
-  windowing and OpenGL context management.
-- **Robust Testing & Continuous Integration:**  
-  - Develop comprehensive unit tests to verify each engine component.
-  - Set up a CI system to automatically run tests on every commit.
-- **Visual Demonstrations:**  
-  - Build a demo application that uses the engine to display both linear and 
-  rotational motion in real time.
+- Demonstrate technical knowledge: Create high quality and polished engine
+that will stand out in my portfolio, proving my capability of designing and 
+building complex systems.
 
-## Technologies Used
+## What I have learned from this project:
 
-- **C++17:** Primary language for system-level performance.
-- **CMake:** For cross-platform build configuration.
-- **GLM:** For mathematical computations (vectors, matrices, quaternions).
-- **OpenGL, GLEW, GLFW:** For rendering and managing graphical output.
-- **Unit Testing Framework:** (e.g., Google Test, Catch2, or Doctest) for 
-automated testing.
+- The laws of linear and angular motion, and how forces, torques and damping work together.
+- C++ best practices, like memory management, clean code architecture and debugging.
+- Practical experience integrating and using libraries like GLM, GLEW and GLFW.
+- The importance of separation of concerns.
+- How to design a reusable physics engine library that serves as a portfolio project.
+- Problem solving and optimizations.
+- The importance of clear documentation.
 
-## Why This Project?
+# Code Example
 
-This project is driven by a desire to push the boundaries of what I can achieve
-as an engineer. By tackling the challenges of simulating both linear and 
-rotational motion, I aim to:
+How to create and utilize a window
 
-- **Master Complex Concepts:** Deepen my understanding of physics simulations
-and learn to optimize performance in a challenging, real-world scenario.
-- **Demonstrate Technical Excellence:** Create a high-quality, well-tested
-engine that stands out as a portfolio piece, proving my ability to handle 
-complex systems with precision.
-- **Embrace Best Practices:** Commit to disciplined, modular development and
-rigorous testing—key practices that ensure both reliability and scalability in
-professional software projects.
+```cpp
+phe::graphics::Window window = phe::graphics::createWindow(800, 600, "Example pheV3");
+if (!window) {
+    return 1;
+}
 
-This project is a personal challenge to reach new heights in engineering and to 
-build something that not only works well but also showcases a commitment to 
-innovation and quality.
+if (phe::graphics::initWindow(window) < 0) {
+    phe::graphics::destroyWindow(window);
+    return 1;
+}
 
----
+while (!phe::graphics::shouldClose(window)) {
+    phe::graphics::pollEvents();
+    phe::graphics::swapBuffers(window);
+}
+```
 
