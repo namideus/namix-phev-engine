@@ -40,22 +40,40 @@ building complex systems.
 
 # Code Example
 
-How to create and utilize a window
+How to create and utilize a window:
 
 ```cpp
-phe::graphics::Window* window = phe::graphics::createWindow(800, 600, "Example pheV3");
-if (!window) {
-    return 1;
-}
+int main() {
+    phe::graphics::Window* window = phe::graphics::createWindow(800, 600, "Example pheV3");
+    if (!window) {
+        return 1;
+    }
 
-if (phe::graphics::initWindow(window) < 0) {
+    if (phe::graphics::initWindow(window) < 0) {
+        phe::graphics::destroyWindow(window);
+        return 1;
+    }
+
+    while (!phe::graphics::shouldClose(window)) {
+        phe::graphics::pollEvents();
+        phe::graphics::swapBuffers(window);
+    }
+
     phe::graphics::destroyWindow(window);
-    return 1;
 }
+```
 
-while (!phe::graphics::shouldClose(window)) {
-    phe::graphics::pollEvents();
-    phe::graphics::swapBuffers(window);
+How to initialize the renderer and clear the window:
+
+```cpp
+// After initializing the window and before the loop
+phe::graphics::Renderer renderer = phe::graphics::renderInit(window->width, window->height);
+
+while (!phe::graphics::shouldCLose(window)) {
+    // You must call this before rendering anything.
+    graphics::renderClear(0.2f, 0.3f, 0.3f, 1.0f) // RGBA values you want, respectively.
+
+    // rest of the code ...
 }
 ```
 
