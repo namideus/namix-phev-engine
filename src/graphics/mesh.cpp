@@ -99,6 +99,7 @@ Mesh createCubeMesh(glm::vec3 size, glm::vec3 rgb) {
          hx, -hy, -hz,  r, g, b,
          hx, -hy,  hz,  r, g, b,
         -hx, -hy,  hz,  r, g, b,
+        -hx, -hy, -hz,  r, g, b,
     };
 
 
