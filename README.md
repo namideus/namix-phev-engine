@@ -38,6 +38,9 @@ building complex systems.
 - Problem solving and optimizations.
 - The importance of clear documentation.
 
+> **Note:** If you have ANY questions, feel free to contact me via the email listed omy profile
+> I'm open to feedback, contributions and discussions!
+
 # Code Example
 
 How to create and utilize a window:
@@ -76,4 +79,6 @@ while (!phe::graphics::shouldCLose(window)) {
     // rest of the code ...
 }
 ```
+
+I'M WORKING ON THE README. It's not done yet. I'll put more code examples soon.
 
