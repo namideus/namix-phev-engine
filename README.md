@@ -38,7 +38,7 @@ building complex systems.
 - Problem solving and optimizations.
 - The importance of clear documentation.
 
-> **Note:** If you have ANY questions, feel free to contact me via the email listed omy profile
+> **Note:** If you have ANY questions, feel free to contact me via the email listed on my profile
 > I'm open to feedback, contributions and discussions!
 
 # Code Example
