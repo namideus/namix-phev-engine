@@ -4,6 +4,8 @@
 #include <vector>
 #include <glm/glm.hpp>
 
+#include "math_utils/transform.hpp"
+
 namespace phe::graphics {
     struct Mesh {
         unsigned int vao, vbo, ebo;
@@ -22,7 +24,10 @@ namespace phe::graphics {
     /**
      * Draws the mesh in local space ( x: 0, y: 0, z: 0)
      */
-    void drawMesh(Mesh &m);
+    void drawMesh(Mesh& m);
+
+    int getNumVerts(Mesh& m);
+    glm::vec3 getVertex(Mesh& m, math::Transform trans, int i);
 }
 
 #endif
