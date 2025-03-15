@@ -41,6 +41,55 @@ building complex systems.
 > **Note:** If you have ANY questions, feel free to contact me via the email listed on my profile
 > I'm open to feedback, contributions and discussions!
 
+# How to build
+
+## First-time setup
+When building for the first time, you need to generate `compile_commands.json`
+using Bear and then move it down a folder.
+
+First, install Bear.
+
+Ubuntu/Debian:
+```bash
+sudo apt update
+sudo apt install bear
+```
+
+Arch Linux:
+```bash
+sudo pacman -S bear
+```
+
+macOS (Homebrew):
+```bash
+brew install bear
+```
+
+Windows (MSYS2 - Pacman)
+```bash
+pacman -S mingw-w64-x86_64-bear
+```
+
+Then create the build directory and build with CMake and bear:
+```bash
+mkdir build
+cd build
+cmake ..
+bear -- cmake --build .
+mv compile_commands.json ..
+```
+
+## Building the project
+After that, you can always build and compile with these commands inside the pheV3 folder:
+
+```bash
+cd ..
+cmake -S . -B build
+cmake --build build
+```
+
+Everything should work. If not, contact me for help :D.
+
 # Code Example
 
 How to create and utilize a window:
