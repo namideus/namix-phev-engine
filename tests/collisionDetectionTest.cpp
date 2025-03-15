@@ -1,0 +1,46 @@
+// This was made to test collision detection between two Rigid Bodies.
+#include <iostream>
+#include <glm/glm.hpp>
+
+#include "graphics/renderer.hpp"
+#include "graphics/window.hpp"
+#include "physics/rigidbody.hpp"
+#include "physics/collisionUtils.hpp"
+
+using namespace phe;
+
+int main() {
+    auto window = graphics::createWindow(800, 600, "Collision Detection Test");
+    if (!window) {
+        return 1;
+    }
+
+    if (graphics::initWindow(window) < 0) {
+        return 1;
+    }
+
+    auto renderer = graphics::renderInit(window->width, window->height);
+
+    physics::RigidBody rb1(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f), 1.0f);
+    physics::RigidBody rb2(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), 1.0f);
+
+    physics::setPosition(rb1, glm::vec3(-0.5f, 0.0f, 0.0f));
+    physics::setPosition(rb2, glm::vec3(0.78f, 0.0f, 0.0f));
+
+    physics::setRotation(rb2, 45.0f, glm::vec3(0.3f, 0.7f, 0.5f));
+
+    while (!graphics::shouldClose(window)) {
+        graphics::renderClear(0.2f, 0.3f, 0.3f, 1.0f);
+
+        graphics::drawRigidBody(rb1, renderer);
+        graphics::drawRigidBody(rb2, renderer);
+
+        std::cout << physics::collision::areColliding(rb1, rb2) << '\n';
+
+        graphics::pollEvents();
+        graphics::swapBuffers(window);
+    }
+
+    graphics::destroyWindow(window);
+}
+
