@@ -16,10 +16,10 @@ Renderer renderInit(const float windowWidth, const float windowHeight) {
     r.shader = new Shader("./src/graphics/shaders/vert.glsl", "./src/graphics/shaders/frag.glsl");
     r.shader->use();
 
-    glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f),
+    glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f),
             glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f),
+    glm::mat4 projection = glm::perspective(glm::radians(60.0f),
             (float)windowWidth/(float)windowHeight, 0.1f, 1000.0f);
 
     r.shader->setMat4("view", view);
