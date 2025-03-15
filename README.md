@@ -106,22 +106,25 @@ How to create and utilize a window:
 
 ```cpp
 int main() {
+    // create a window with specified width, height and title
     phe::graphics::Window* window = phe::graphics::createWindow(800, 600, "Example pheV3");
     if (!window) {
         return 1;
     }
 
+    // initialize the window
     if (phe::graphics::initWindow(window) < 0) {
         phe::graphics::destroyWindow(window);
         return 1;
     }
 
+    // main loop
     while (!phe::graphics::shouldClose(window)) {
         phe::graphics::pollEvents();
         phe::graphics::swapBuffers(window);
     }
 
-    phe::graphics::destroyWindow(window);
+    phe::graphics::destroyWindow(window); // Clean up and free window
 }
 ```
 
@@ -131,12 +134,27 @@ How to initialize the renderer and clear the window:
 // After initializing the window and before the loop
 phe::graphics::Renderer renderer = phe::graphics::renderInit(window->width, window->height);
 
-while (!phe::graphics::shouldCLose(window)) {
-    // You must call this before rendering anything.
-    graphics::renderClear(0.2f, 0.3f, 0.3f, 1.0f) // RGBA values you want, respectively.
+while (!phe::graphics::shouldClose(window)) {
+    // clear the window with specified RGBA respectively
+    graphics::renderClear(0.2f, 0.3f, 0.3f, 1.0f);
 
-    // rest of the code ...
+    // Render other stuff here...
 }
+```
+
+How to draw a static Rigid Body:
+
+```cpp
+#include <glm/glm.hpp>
+
+/* ... */
+
+// Inside main
+phe::physics::RigidBody rigidBody(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.8f, 0.2f, 0.3f), 1.0f) // Size vector, RGB vector, mass
+
+
+// Inside the render loop 
+phe::graphics::drawRigidBody(rigidBody, renderer); // draw the body using the renderer
 ```
 
 I'M WORKING ON THE README. It's not done yet. I'll put more code examples soon.
