@@ -1,6 +1,9 @@
 #include <GL/glew.h>
+#include <stdexcept>
+#include <glm/gtc/quaternion.hpp>
 
 #include "graphics/mesh.hpp"
+#include "math_utils/transform.hpp"
 
 namespace phe::graphics {
 
@@ -115,6 +118,25 @@ Mesh createCubeMesh(glm::vec3 size, glm::vec3 rgb) {
     return createMesh(cubeVertices, cubeIndices);
 }
 
-} // namespace phe::graphics
+int getNumVerts(Mesh& m) {
+    return m.vertices.size() / 6;
+}
 
+glm::vec3 getVertex(Mesh& m, math::Transform trans, int i) {
+    if (i > m.vertices.size() || i < 0) {
+        throw std::out_of_range("Vertex index is out of range");
+    }
+
+    int vertexStart = i * 6;
+
+    glm::vec3 localVertex(
+        m.vertices[vertexStart],
+        m.vertices[vertexStart + 1],
+        m.vertices[vertexStart + 2]
+    );
+
+    return glm::vec3(trans.rotation * glm::vec4(localVertex, 1.0f)) + trans.translation;
+}
+
+} // namespace phe::graphics
 
