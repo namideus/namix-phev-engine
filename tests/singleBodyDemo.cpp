@@ -3,9 +3,10 @@
 #include "physics/rigidbody.hpp"
 #include <glm/ext/quaternion_trigonometric.hpp>
 #include <GLFW/glfw3.h>
+#include <iostream>
 
-#define WIDTH 800
-#define HEIGHT 600
+#define WIDTH 900 
+#define HEIGHT 700 
 
 using namespace phe;
 using namespace glm;
@@ -28,8 +29,10 @@ int main() {
     physics::RigidBody rb(vec3(1.0f, 1.0f, 1.0f), vec3(0.8f, 0.2f, 0.2f), 1.0f);
     physics::setPosition(rb, 0.0f, 0.0f, -5.0f);
 
-    bool isTrue = true;
-    const glm::vec3 GRAVITY(0.0f, -9.81f, 0.0f);
+    const glm::vec3 GRAVITY(0.0f, -9.80665f, 0.0f);
+
+    bool isTrue = false;
+    float startTime = glfwGetTime();
 
     while (!graphics::shouldClose(window)) {
         float currentTime = static_cast<float>(glfwGetTime());
@@ -37,16 +40,17 @@ int main() {
         lastTime = currentTime;
         graphics::renderClear(0.2f, 0.3f, 0.3f, 1.0f);
 
-        if (isTrue) {
-            physics::applyForce(rb, vec3(-5.0f, 40.0f, 30.0f), vec3(0.2f, 0.2f, 0.1f));
-            isTrue = false;
+        if (currentTime - startTime >= 1.5f) {
+            if (!isTrue) {
+                physics::applyForce(rb, vec3(100.0f, 1800.0f, -400.0f), vec3(0.050f, -0.1f, 0.0f));
+                isTrue = true;
+            }
+            // Apply gravity
+            physics::applyForce(rb, GRAVITY, vec3(0.0f, 0.0f, 0.0f));
+
+            physics::integrateForces(rb, dt);
+            physics::integrateVelocity(rb, dt);
         }
-
-        // Apply gravity
-        physics::applyForce(rb, GRAVITY, vec3(0.0f, 0.0f, 0.0f));
-
-        physics::integrateForces(rb, dt);
-        physics::integrateVelocity(rb, dt);
 
         graphics::drawRigidBody(rb, renderer);
 
