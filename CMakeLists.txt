@@ -47,7 +47,7 @@ enable_testing()
 # Tests executable (link to pheV3 to inherit includes)
 # Demo executables
 add_executable(singleBodyDemo tests/singleBodyDemo.cpp)
-add_executable(multipleBodiesDemo tests/rainingBodiesDemo.cpp)
+add_executable(collisionDetectionTest tests/collisionDetectionTest.cpp)
 target_link_libraries(singleBodyDemo PRIVATE pheV3)
-target_link_libraries(multipleBodiesDemo PRIVATE pheV3)
+target_link_libraries(collisionDetectionTest PRIVATE pheV3)
 
