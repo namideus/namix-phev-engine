@@ -9,6 +9,7 @@ linear and angular motion of Rigid Bodies.
 ## Features
 
 - Linear and angular motion integration.
+- Collision of rigid bodies
 - OpenGL wrappers (for things like windows, rendering, shaders).
 - Easy implementation for real-time demos.
 
