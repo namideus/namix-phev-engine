@@ -48,6 +48,8 @@ enable_testing()
 # Demo executables
 add_executable(singleBodyDemo tests/singleBodyDemo.cpp)
 add_executable(collisionDetectionTest tests/collisionDetectionTest.cpp)
+add_executable(boxStackingDemo tests/boxStackingDemo.cpp)
 target_link_libraries(singleBodyDemo PRIVATE pheV3)
 target_link_libraries(collisionDetectionTest PRIVATE pheV3)
+target_link_libraries(boxStackingDemo PRIVATE pheV3)
 
