@@ -4,6 +4,7 @@
 
 #include "graphics/renderer.hpp"
 #include "graphics/window.hpp"
+#include "physics/collision.hpp"
 #include "physics/rigidbody.hpp"
 #include "physics/collisionUtils.hpp"
 
@@ -32,8 +33,8 @@ int main() {
     physics::setRotation(rb2, 45.0f, glm::vec3(0.3f, 0.7f, 0.5f));
     float lastTime = 0.0f;
 
-    physics::applyForce(rb1, glm::vec3(10.0f, 50.0f, -60.0f), glm::vec3(0.1, 0.1, 0.0f));
-    physics::applyForce(rb2, glm::vec3(-10.0f, 50.0f, -60.0f), glm::vec3(0.0, 0.1, 0.0));
+    physics::applyForce(rb1, glm::vec3(90.0f, 50.0f, -60.0f), glm::vec3(0.1, 0.1, 0.0f));
+    physics::applyForce(rb2, glm::vec3(-90.0f, 50.0f, -60.0f), glm::vec3(0.0, 0.1, 0.0));
 
     while (!graphics::shouldClose(window)) {
         float currentTime = static_cast<float>(glfwGetTime());
@@ -41,6 +42,7 @@ int main() {
         lastTime = currentTime;
 
         graphics::renderClear(0.2f, 0.3f, 0.3f, 1.0f);
+        auto collisionInfo = physics::collision::areColliding(rb1, rb2);
         
         physics::applyForce(rb1, GRAVITY, glm::vec3(0.0f, 0.0f, 0.0f));
         physics::applyForce(rb2, GRAVITY, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -54,7 +56,9 @@ int main() {
         graphics::drawRigidBody(rb1, renderer);
         graphics::drawRigidBody(rb2, renderer);
 
-        std::cout << physics::collision::areColliding(rb1, rb2).isColliding << '\n';
+        if (collisionInfo.isColliding) {
+            physics::collision::resolveCollision(rb1, rb2, collisionInfo);
+        }
 
         graphics::pollEvents();
         graphics::swapBuffers(window);
