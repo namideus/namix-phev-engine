@@ -118,5 +118,10 @@ CollisionInfo areColliding(RigidBody& a, RigidBody& b) {
     return collisionInfo;
 }
 
+glm::vec3 findContactPoint(RigidBody& rb, const glm::vec3& mpa, float penetrationDepth) {
+    return rb.trans.translation + mpa * penetrationDepth / 2.0f;
+
+}
+
 } // namespace phe::physics::collision
 
