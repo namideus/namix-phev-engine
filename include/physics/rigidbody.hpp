@@ -23,10 +23,11 @@ struct RigidBody {
     glm::mat3 inertiaTensor = glm::mat4(1.0f);
 
     float mass = 1.0f;
+    bool isDynamic = false;
 
     graphics::Mesh mesh;
 
-    RigidBody(glm::vec3 size, glm::vec3 rgb, float mass);
+    RigidBody(glm::vec3 size, glm::vec3 rgb, float mass, bool isDynamic);
     ~RigidBody();
 };
 
