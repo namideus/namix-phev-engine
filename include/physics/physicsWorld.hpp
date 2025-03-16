@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "graphics/renderer.hpp"
+#include "physics/collision.hpp"
 #include "physics/rigidbody.hpp"
 
 namespace phe::physics {
@@ -17,11 +18,14 @@ class PhysicsWorld {
 private:
     std::vector<RigidBody*> bodies;
     const glm::vec3 GRAVITY = glm::vec3(0.0f, -9.80665, 0.0f);
+    collision::GridPartition gp;
 
 public:
     void update(float dt, graphics::Renderer& r);
 
     void addRigidBody(RigidBody* rb);
+
+    PhysicsWorld();
 };
 
 }
