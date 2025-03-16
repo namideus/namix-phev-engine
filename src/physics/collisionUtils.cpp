@@ -1,6 +1,8 @@
 #include "physics/collisionUtils.hpp"
 #include "graphics/mesh.hpp"
 #include "physics/rigidbody.hpp"
+#include <algorithm>
+#include <cfloat>
 #include <glm/geometric.hpp>
 
 namespace phe::physics::collision {
@@ -52,8 +54,9 @@ std::vector<glm::vec3> computeCubeEdges(const RigidBody& rb) {
     return worldEgdes;
 }
 
-bool areColliding(RigidBody& a, RigidBody& b) {
+CollisionInfo areColliding(RigidBody& a, RigidBody& b) {
     std::vector<glm::vec3> axes;    
+    CollisionInfo collisionInfo;
 
     auto normalsA = computeCubeNormals(a);
     auto normalsB = computeCubeNormals(b);
@@ -69,13 +72,16 @@ bool areColliding(RigidBody& a, RigidBody& b) {
         for (auto& b : edgesB) {
             glm::vec3 res = glm::normalize(glm::cross(a, b));
             // ignore 0 length cross
-            if (glm::length(res) > 0.0f) 
+            if (glm::length(res) > 0.0f) {
                 axes.push_back(res);
+            }
         }
     }
 
+    float lastPenetrationDepth = FLT_MAX;
+
     for (auto& axis : axes) {
-        // Find minA, maxA, minB and maxB to check if projection ovelaps
+        // Find minA, maxA, minB and maxB to check if their projection ovelaps
         float minA = FLT_MAX, maxA = -FLT_MAX;
         for (int i = 0; i < graphics::getNumVerts(a.mesh); ++i) {
             glm::vec3 vA = graphics::getVertex(a.mesh, a.trans, i);
@@ -93,11 +99,23 @@ bool areColliding(RigidBody& a, RigidBody& b) {
         }
 
         if (!projectionsOverlap(minA, maxA, minB, maxB)) {
-            return false;
+            collisionInfo.isColliding = false;
+            collisionInfo.mpa = glm::vec3(0.0f, 0.0f, 0.0f);
+            collisionInfo.penetrationDepth = 0.0f;
+            return collisionInfo;
         }
+
+        float currPenetrationDepth = std::min(maxA, maxB) - std::max(minA, minB);
+        if (currPenetrationDepth < lastPenetrationDepth) {
+            lastPenetrationDepth = currPenetrationDepth;
+            collisionInfo.mpa = axis;
+        }
+
     }
 
-    return true;
+    collisionInfo.penetrationDepth = lastPenetrationDepth;
+    collisionInfo.isColliding = true;
+    return collisionInfo;
 }
 
 } // namespace phe::physics::collision
