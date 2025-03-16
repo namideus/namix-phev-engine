@@ -54,7 +54,7 @@ int main() {
         graphics::drawRigidBody(rb1, renderer);
         graphics::drawRigidBody(rb2, renderer);
 
-        std::cout << physics::collision::areColliding(rb1, rb2) << '\n';
+        std::cout << physics::collision::areColliding(rb1, rb2).isColliding << '\n';
 
         graphics::pollEvents();
         graphics::swapBuffers(window);
