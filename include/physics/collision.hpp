@@ -4,7 +4,7 @@
 #include "physics/collisionUtils.hpp"
 #include "physics/rigidbody.hpp"
 
-#define RESTITUTION_CO 0.65f
+#define RESTITUTION_CO 0.78f
 
 namespace phe::physics::collision {
 
