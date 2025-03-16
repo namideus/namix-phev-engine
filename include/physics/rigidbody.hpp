@@ -27,6 +27,10 @@ struct RigidBody {
 
     graphics::Mesh mesh;
 
+    bool operator!=(const RigidBody& other) {
+        return !(this->trans == other.trans);
+    }
+
     RigidBody(glm::vec3 size, glm::vec3 rgb, float mass, bool isDynamic);
     ~RigidBody();
 };
