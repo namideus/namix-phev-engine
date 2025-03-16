@@ -45,9 +45,23 @@ void applyAngularForce(RigidBody& rb, glm::vec3 f, glm::vec3 r) {
     rb.angularAcc += glm::inverse(rb.inertiaTensor) * t; 
 }
 
+void applyLinearImpulse(RigidBody& rb, glm::vec3 i) {
+    rb.linearVel += i / rb.mass;
+}
+
+void applyAngularImpulse(RigidBody& rb, glm::vec3 i, glm::vec3 r) {
+    glm::vec3 t = glm::cross(r, i);
+    rb.angularVel += glm::inverse(rb.inertiaTensor) * t;
+}
+
 void applyForce(RigidBody& rb, glm::vec3 f, glm::vec3 r) {
     applyLinearForce(rb, f);
     applyAngularForce(rb, f, r);
+}
+
+void applyImpulse(RigidBody &rb, glm::vec3 i, glm::vec3 r) {
+    applyLinearImpulse(rb, i);
+    applyAngularImpulse(rb, i, r);
 }
 
 void integrateForces(RigidBody& rb, float dt) {

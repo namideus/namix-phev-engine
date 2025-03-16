@@ -52,6 +52,9 @@ void applyLinearForce(RigidBody& rb, glm::vec3 f);
  */
 void applyAngularForce(RigidBody& rb, glm::vec3 f, glm::vec3 r);
 
+void applyLinearImpulse(RigidBody& rb, glm::vec3 i);
+
+void applyAngularImpulse(RigidBody& rb, glm::vec3 i, glm::vec3 r);
 /**
  * Applies both angular and linear forces
  *
@@ -61,6 +64,8 @@ void applyAngularForce(RigidBody& rb, glm::vec3 f, glm::vec3 r);
  * of mass to the point where the force was applied.
  */
 void applyForce(RigidBody& rb, glm::vec3 f, glm::vec3 r);
+
+void applyImpulse(RigidBody& rb, glm::vec3 i, glm::vec3 r);
 
 /**
  * Integrates both linear and angular acceleration to linear velocity and 
