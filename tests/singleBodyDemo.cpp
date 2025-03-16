@@ -26,7 +26,7 @@ int main() {
 
     graphics::Renderer renderer = graphics::renderInit(WIDTH, HEIGHT);
 
-    physics::RigidBody rb(vec3(1.0f, 1.0f, 1.0f), vec3(0.8f, 0.2f, 0.2f), 1.0f);
+    physics::RigidBody rb(vec3(1.0f, 1.0f, 1.0f), vec3(0.8f, 0.2f, 0.2f), 1.0f, true);
     physics::setPosition(rb, 0.0f, 0.0f, -5.0f);
 
     const glm::vec3 GRAVITY(0.0f, -9.80665f, 0.0f);

@@ -23,17 +23,18 @@ int main() {
 
     auto renderer = graphics::renderInit(window->width, window->height);
 
-    physics::RigidBody rb1(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f), 1.0f);
-    physics::RigidBody rb2(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), 1.0f);
+    physics::RigidBody rb1(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f), 1.0f, true);
+    physics::RigidBody rb2(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), 1.0f, true);
 
     physics::setPosition(rb1, glm::vec3(-4.0f, 1.0f, 0.0f));
     physics::setPosition(rb2, glm::vec3(4.0f, 1.0f, 0.0f));
 
     physics::setRotation(rb2, 45.0f, glm::vec3(0.3f, 0.7f, 0.5f));
-    float lastTime = 0.0f;
 
-    physics::applyForce(rb1, glm::vec3(40.0f, 60.0f, -60.0f), glm::vec3(0.1, 0.1, 0.0f));
-    physics::applyForce(rb2, glm::vec3(-40.0f, 60.0f, -60.0f), glm::vec3(0.0, 0.1, 0.0));
+    physics::applyForce(rb1, glm::vec3(70.0f, 60.0f, -80.0f), glm::vec3(0.1, 0.1, 0.0f));
+    physics::applyForce(rb2, glm::vec3(-70.0f, 60.0f, -80.0f), glm::vec3(0.0, 0.1, 0.0));
+
+    float lastTime = 0.0f;
 
     while (!graphics::shouldClose(window)) {
         auto collisionInfo = physics::collision::areColliding(rb1, rb2);
