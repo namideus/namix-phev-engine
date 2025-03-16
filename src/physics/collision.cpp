@@ -24,7 +24,6 @@ static std::tuple<int, int, int> findBodyGridCell(RigidBody* b, GridPartition& g
  */
 static void checkNeighboringCells(std::tuple<int, int, int> cell, RigidBody* currBody, GridPartition& gp, std::vector<RigidBody*>& out) {
     std::unordered_set<RigidBody*> addedBodies;
-    auto [cellX, cellY, cellZ] = cell;
 
     // Go over every neighbor of the current cell in a 3x3x3 grid
     for (int x = -1; x <= 1; ++x) {
@@ -35,7 +34,9 @@ static void checkNeighboringCells(std::tuple<int, int, int> cell, RigidBody* cur
                 if (x == 0 && y == 0 && z == 0) continue;
 
                 // Get the neighbor cell by adding current cell coordinates + current neighbor coordinates (represented by x, y and z)
-                auto neighborCell = std::make_tuple(cellX + x, cellY + y, cellZ + z);
+                auto neighborCell = std::make_tuple(std::get<0>(cell) + x,
+                                                    std::get<1>(cell) + y,
+                                                    std::get<2>(cell) + z);
 
                 // O(1) look up time
                 auto it = gp.gridCells.find(neighborCell);
