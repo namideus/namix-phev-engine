@@ -25,8 +25,8 @@ static glm::mat3 calculateInertiaTensor(float mass, glm::vec3 size) {
 
 namespace phe::physics {
 
-    RigidBody::RigidBody(glm::vec3 size, glm::vec3 rgb, float mass) 
-         : size(size), mass(mass) {
+    RigidBody::RigidBody(glm::vec3 size, glm::vec3 rgb, float mass, bool isDynamic) 
+         : size(size), mass(mass), isDynamic(isDynamic) {
 
     mesh = graphics::createCubeMesh(size, rgb);
     inertiaTensor = calculateInertiaTensor(mass, size);
