@@ -1,17 +1,25 @@
+#include <cstddef>
+
 #include "physics/physicsWorld.hpp"
 #include "graphics/renderer.hpp"
 #include "physics/collision.hpp"
 #include "physics/collisionUtils.hpp"
 #include "physics/rigidbody.hpp"
-#include <cstddef>
 
 namespace phe::physics {
 
+PhysicsWorld::PhysicsWorld() {
+    gp.gridSize = 10.0f;
+    gp.gridCells.clear();
+}
+
 void PhysicsWorld::update(float dt, graphics::Renderer& r) {
-    for (size_t i = 0; i < bodies.size(); i++) {
-        for (size_t j = i+1; j < bodies.size(); j++) {
-            auto& b1 = bodies[i];
-            auto& b2 = bodies[j];
+    auto filteredBodies = collision::broadPhaseFilter(bodies, gp);
+
+    for (size_t i = 0; i < filteredBodies.size(); i++) {
+        for (size_t j = i+1; j < filteredBodies.size(); j++) {
+            auto& b1 = filteredBodies[i];
+            auto& b2 = filteredBodies[j];
             auto info = collision::areColliding(*b1, *b2);
             if (info.isColliding) {
                 collision::resolveCollision(*b1, *b2, info);
